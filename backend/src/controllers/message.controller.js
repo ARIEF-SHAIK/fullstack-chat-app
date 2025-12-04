@@ -30,11 +30,12 @@ export const getMessages = async (req,res)=>{
      res.status(201).json(messages);
     }catch(error){
         console.log("error in getting messages",error.message);
-        res.satatus(500).send(error.message);
+        res.status(500).send(error.message);
 
     }
      
 }
+
 
 export const sendMessage = async(req,res)=>{
     try{
@@ -65,11 +66,14 @@ export const sendMessage = async(req,res)=>{
         })
         await newMessage.save();
         
-        //todo:realtime functionalty starts here scoket.io
-        const receiverSocketId = getReceiverSocketId(receiverId)
+        // Real-time message functionality with socket.io
+        const receiverSocketId = getReceiverSocketId(receiverId);
         if(receiverSocketId){
-            io.to(receiverSocketId).emit('new-message',newMessage);
-                }
+            console.log("Emitting newMessage via socket to receiver:", receiverSocketId);
+            io.to(receiverSocketId).emit('newMessage', newMessage);
+        } else {
+            console.log("Receiver not connected:", receiverId);
+        }
         res.status(201).json(newMessage);
 
     }catch(error){

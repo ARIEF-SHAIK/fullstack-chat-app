@@ -24,10 +24,14 @@ io.on('connection',(socket)=>{
     console.log("user connected",socket.id);
     
     const userId = socket.handshake.query.userId;
+    console.log("userId from query:", userId);
     if (userId) userSocketMap[userId] = socket.id;
+    console.log("Current userSocketMap:", userSocketMap);
 
     // Broadcast online users
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    const onlineUserIds = Object.keys(userSocketMap);
+    console.log("Broadcasting online users:", onlineUserIds);
+    io.emit("getOnlineUsers", onlineUserIds);
 
     socket.on("disconnect",()=>{
         console.log("user disconnected",socket.id);

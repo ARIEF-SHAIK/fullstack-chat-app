@@ -84,20 +84,54 @@ export const useAuthStore = create((set, get) => ({
 
   connectSocket: () => {
     const { authUser } = get();
-    if (!authUser || get().socket?.connected) return;
+    console.log("connectSocket called, authUser:", authUser ? authUser._id : "none");
+    
+    if (!authUser) {
+      console.log("No authUser, returning");
+      return;
+    }
+    
+    const existingSocket = get().socket;
+    if (existingSocket) {
+      if (existingSocket.connected) {
+        console.log("Socket already connected, returning");
+        return;
+      } else {
+        console.log("Socket exists but not connected, disconnecting before reconnect");
+        existingSocket.disconnect();
+      }
+    }
 
+    console.log("Creating new socket connection with userId:", authUser._id);
     const socket = io(BASE_URL, {
       query: {
         userId: authUser._id,
       },
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 5,
     });
-    socket.connect();
 
-    set({ socket: socket });
+    socket.on("connect", () => {
+      console.log("✓ Socket connected, socket.id:", socket.id);
+    });
 
     socket.on("getOnlineUsers", (userIds) => {
-      set({ OnlineUsers: userIds });
+      console.log("✓ getOnlineUsers event received:", userIds);
+      set({ onlineUsers: userIds });
     });
+
+    socket.on("disconnect", () => {
+      console.log("✓ Socket disconnected");
+    });
+    
+    socket.on("error", (error) => {
+      console.error("✗ Socket error:", error);
+    });
+
+    set({ socket: socket });
+    console.log("✓ Socket instance saved to store");
   },
   disconnectSocket: () => {
     if (get().socket?.connected) get().socket.disconnect();

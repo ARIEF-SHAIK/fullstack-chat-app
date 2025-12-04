@@ -17,6 +17,10 @@ const Sidebar = () => {
     getUsers();
   }, [getUsers]);
 
+  useEffect(() => {
+    console.log("onlineUsers changed in Sidebar:", onlineUsers);
+  }, [onlineUsers]);
+
   console.log("Users:", users);
   console.log("Is Loading:", isUsersLoading);
 
@@ -65,7 +69,7 @@ const Sidebar = () => {
           >
             <div className="relative mx-auto lg:mx-0">
               <img
-                src={User.profilePic || "/avatar.png"}
+                src={User.profilepic || "/image.png"}
                 alt={User.name}
                 className="size-12 object-cover rounded-full"
               />

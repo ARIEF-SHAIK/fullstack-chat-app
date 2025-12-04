@@ -12,19 +12,25 @@ const ProfilePage = () => {
   console.log("authUser:", authUser);
   console.log("authUser.profilepic:", authUser?.profilepic);
 
+console.log(selectedImg);
+  const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
-  const handleImageUpload = async (e)=>{
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
+  // 👇 Show image preview
+  setSelectedImg(URL.createObjectURL(file));
 
-    reader.onload = async ()=>{
-      const base64Image =reader.result;
-      setSelectedImg(base64Image);
-      await updateProfile({profilePic:base64Image});
-    }
+  // 👇 Send actual file to backend using FormData
+  const formData = new FormData();
+  formData.append("profilepic", file);
 
+  try {
+    await updateProfile(formData);
+  } catch (err) {
+    console.error(err);
   }
+};
+
   return (
     <div className='h-screen pt-20'>
       <div className='max-w-2xl mx-auto p-4 py-8'>
@@ -36,7 +42,7 @@ const ProfilePage = () => {
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
-                src={selectedImg || authUser?.profilepic || "/avatar.png"}
+                src={selectedImg || authUser?.profilepic || "/image.png"}
                 alt="Profile"
                 className="size-32 rounded-full object-cover border-4 "
               />

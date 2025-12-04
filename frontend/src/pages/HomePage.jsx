@@ -6,6 +6,10 @@ import NoChatSelected from '../components/NoChatSelected';
 import ChatContainer from '../components/ChatContainer';
 const HomePage = () => {
   const { selectedUser } = useChatStore();
+
+
+  console.log(selectedUser, "home page");
+
   return (
     <div className='h-screen bg-base-200'>
       <div className='flex items-center justify-cenetr pt-20 px-4'>

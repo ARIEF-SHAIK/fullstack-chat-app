@@ -10,15 +10,21 @@ const MessageInput = () => {
   const { sendMessage } = useChatStore();
 
   const handleImageChange = (e) => {
+    console.log("handleImageChange called, files:", e.target.files);
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
     }
+    console.log("File selected:", file.name, file.type);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
+      console.log("Image preview set");
     };
     reader.readAsDataURL(file);
   };
@@ -90,7 +96,10 @@ const MessageInput = () => {
             type="button"
             className={`hidden sm:flex btn btn-circle
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              console.log("Image button clicked");
+              fileInputRef.current?.click();
+            }}
           >
             <Image size={20} />
           </button>
