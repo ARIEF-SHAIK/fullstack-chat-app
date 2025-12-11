@@ -19,7 +19,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://vercel.com/ariefs-projects-9b375403/fullstack-chat-app-yo4x',
+  origin: process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : "http://localhost:5173",
   credentials: true,
 }));
 
