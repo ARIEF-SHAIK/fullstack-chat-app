@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "frontend/dist",
+  "outputDirectory": "dist",
   "env": {
     "VITE_API_URL": "https://fullstack-chat-app-1-23tw.onrender.com/"
   },
