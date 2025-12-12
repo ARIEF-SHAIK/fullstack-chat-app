@@ -2,12 +2,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "env": {
-    "VITE_API_URL": "https://fullstack-chat-app-1-23tw.onrender.com"
+    "VITE_API_URL": "https://fullstack-chat-app-1-23tw.onrender.com/api"
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://fullstack-chat-app-1-23tw.onrender.com"
+      "destination": "https://fullstack-chat-app-1-23tw.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",
