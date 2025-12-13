@@ -57,7 +57,7 @@ const SignUpPage = () => {
     <div className="min-h-screen grid lg:grid-cols-2">
       {/* LEFT SIDE */}
       <div className="flex p-6 sm:p-12 justify-end">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md space-y-8 rounded-xl shadow-2xl bg-base-100/0 p-6 mt-10">
           {/* LOGO */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
@@ -66,8 +66,8 @@ const SignUpPage = () => {
                 group-hover:bg-primary/20 transition-colors">
                 <MessageSquare className="size-6 text-primary" />
               </div> */}
-              <h1 className="text-2xl font-bold mt-2">Create Account At ConnectX</h1>
-              <p className="text-base-content/60">Get started with your free account</p>
+              <h1 className="text-2xl font-bold mt-12">Create Account At ConnectX</h1>
+              {/* <p className="text-base-content/60">Get started with your free account</p> */}
             </div>
           </div>
 
@@ -184,7 +184,7 @@ const SignUpPage = () => {
         {/* Welcome Text */}
         <h2 className="text-2xl font-bold">Welcome to ConnectX!</h2>
         <p className="text-base-content/60">
-          Select a conversation from the sidebar to start chatting
+          Moments don’t wait. Neither do we.
         </p>
       </div>
     </div>

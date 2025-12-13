@@ -22,7 +22,7 @@ const LoginPage = () => {
      <div className="h-screen grid lg:grid-cols-2">
       {/* Left Side - Form */}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md space-y-8 rounded-xl shadow-lg bg-base-100/0 p-6 mt-10">
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
@@ -127,7 +127,7 @@ const LoginPage = () => {
         {/* Welcome Text */}
         <h2 className="text-2xl font-bold">Welcome to ConnectX!</h2>
         <p className="text-base-content/60">
-          Select a conversation from the sidebar to start chatting
+          Moments don’t wait. Neither do we.
         </p>
       </div>
     </div>
