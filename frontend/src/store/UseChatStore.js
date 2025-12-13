@@ -14,10 +14,17 @@ export const useChatStore = create((set, get) => ({
     set({ isUsersLoading: true });
     try {
       const res = await axiosInstance.get("/message/user");
-      set({ users: res.data });
+      if (Array.isArray(res.data)) {
+        set({ users: res.data });
+      } else {
+        console.error("getUsers: Expected array but got:", res.data);
+        set({ users: [] });
+        toast.error("Received invalid data from server");
+      }
     } catch (error) {
       console.log("Error fetching users:", error);
       toast.error(error.response?.data?.message || "Failed to load users");
+      set({ users: [] });
     } finally {
       set({ isUsersLoading: false });
     }
@@ -27,9 +34,16 @@ export const useChatStore = create((set, get) => ({
     set({ isMessagesLoading: true });
     try {
       const res = await axiosInstance.get(`/message/${userId}`);
-      set({ messages: res.data });
+      if (Array.isArray(res.data)) {
+        set({ messages: res.data });
+      } else {
+        console.error("getMessages: Expected array but got:", res.data);
+        set({ messages: [] });
+        toast.error("Received invalid data from server");
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to load messages");
+      set({ messages: [] });
     } finally {
       set({ isMessagesLoading: false });
     }
