@@ -1,5 +1,4 @@
 import React from 'react'
-import useAuthStore from '../store/UseAuthStore'
 import useChatStore from '../store/UseChatStore'
 import Sidebar from '../components/Sidebar';
 import NoChatSelected from '../components/NoChatSelected';
